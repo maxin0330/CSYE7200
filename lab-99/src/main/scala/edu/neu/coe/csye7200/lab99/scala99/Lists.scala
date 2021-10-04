@@ -28,42 +28,66 @@ object P00 {
 object P01 {
 
   @scala.annotation.tailrec
-  def last[X](xs: List[X]): X = ??? // TO BE IMPLEMENTED
+  def last[X](xs: List[X]): X = xs match{
+    case Nil => throw new NoSuchElementException
+    case h:: Nil =>h
+    case h :: t => last(t)
+  } // TO BE IMPLEMENTED
 }
 
 object P02 {
 
-  @scala.annotation.tailrec
-  def penultimate[X](xs: List[X]): X = ??? // TO BE IMPLEMENTED
+  def penultimate[X](xs: List[X]): X = xs match{
+    case h :: _ :: Nil =>h
+    case h::t => penultimate(t)
+    case h => throw new NoSuchElementException
+  } // TO BE IMPLEMENTED
 }
 
 object P03 {
 
-  @scala.annotation.tailrec
-  def kth[X](k: Int, xs: List[X]): X = ??? // TO BE IMPLEMENTED
+  def kth[X](k: Int, xs: List[X]): X = (k,xs) match {
+    case (0, x:: _) =>x
+    case (n, _::t) => kth(n-1, t)
+    case (_,_) => throw new NoSuchElementException
+  }// TO BE IMPLEMENTED
 }
 
 object P04 {
 
   def length[X](xs: List[X]): Int = {
-    @tailrec
-    def inner(result: Int, _xs: List[X]): Int = {
-      _xs match {
-        case Nil => result
-        case _ :: t => inner(result + 1, t)
-      }
+//    @tailrec
+//    def inner(result: Int, _xs: List[X]): Int = {
+//      _xs match {
+//        case Nil => result
+//        case _ :: t => inner(result + 1, t)
+//      }
+//    }
+//
+//    inner(0, xs)
+    def anyname(r: Int, work: List[X]):Int = work match {
+      case Nil => r
+      case _:: t => anyname(r+1,t)
     }
-
-    inner(0, xs)
+    anyname(0,xs)
   }
 }
 
 object P05 {
 
   def reverse[X](xs: List[X]): List[X] = {
-    // TO BE IMPLEMENTED
-    ???
+    def inner(r:List[X],_xs: List[X]): List[X] = _xs match {
+      case Nil => r
+      case h::t => inner(h +: r,t)
+    }
+    inner(Nil, xs)
+//    xs match {
+//      case Nil=>Nil
+//      case _::Nil => xs
+//      case h :: t => reverse(t):+h
+//    }
   }
+    // TO BE IMPLEMENTED
 }
 
 object P06 {
